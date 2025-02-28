@@ -1,40 +1,42 @@
 import tweepy
-
+#authentication structure using OOP
 class TwitterAuth:
     def __init__(self):
-        # API anahtarları ve access token'ları burada tanımla
-        self.api_key = "4dIlCc04bBu3aKxNCqMM3NYEZ"
-        self.api_secret_key = "1K50xReuPWSsMgDQZWI3ibmC3AEwxBcgBE7ktEOcLAnhj0wfiO"
-        self.access_token = "914888095002218496-9KW7pVxxsGBxTASCCuCPwXuMLfPPZsv"
-        self.access_token_secret = "RgYFvLkBhSoJypNXl2mtj8Z1xUhwSFxPwrMNBaZFlvkUd"
+        #api and acces keys to reach twitter datas
+        self.api_key = "YOUR API KEY"
+        self.api_secret_key = "YOUR API SECRET KEY"
+        self.access_token = "YOUR ACCESS TOKEN"
+        self.access_token_secret = "YOUR ACCES TOKEN SECRET"
+        self.bearer_token = "YOUR BEARER TOKEN"  
         
-        # Bearer Token'ı burada tanımla
-        self.bearer_token = "AAAAAAAAAAAAAAAAAAAAAEqDzgEAAAAAAi7i%2BvWmx9inrBfWWpLgc1Z6mMg%3DpW1srJQKmmZX5OQyclD9OH0HqwsQUL9VT1vtkXI1AMTIZia0lx"  # Buraya kendi bearer token'ını ekle
-        
-        # Kimlik doğrulama işlemi için OAuth1Handler kullan
+        #using OuthHandler function to validate your identification
         self.auth = tweepy.OAuthHandler(self.api_key, self.api_secret_key)
         self.auth.set_access_token(self.access_token, self.access_token_secret)
         
-        # Tweepy API nesnesi oluştur
+        # Tweepy object
         self.api = tweepy.API(self.auth)
-        
+    #get functions    
     def get_api(self):
         return self.api
     
     def get_client(self):
-        # V2 API için Client nesnesi oluştur
+        # client object for Twitter V2 API
         client = tweepy.Client(bearer_token=self.bearer_token)
         return client
     
+    
+    # Control of authentication successfull or unsuccessfull
     def verify_auth(self):
         try:
-            # Kimlik doğrulamanın doğru olup olmadığını kontrol et
             self.api.verify_credentials()
-            print("Kimlik doğrulama başarılı!")
+            print(" Successfull! ")
         except tweepy.TweepError as e:
-            print(f"Kimlik doğrulama hatası: {e}")
+            print(f"Unsuccessfull: {e}")
 
-
+#To shown our verify_auth function we need to make if main structure
 if __name__ == "__main__":
     twitter_auth = TwitterAuth()
     twitter_auth.verify_auth()
+
+
+# I used OOP structure in this code because to make it reachable from another python file
